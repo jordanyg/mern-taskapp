@@ -1,8 +1,8 @@
-import User from "../models/userModel"
+import User from "../models/userModel.js"
 import asyncHandler from 'express-async-handler'
 
-const createUser = async(req ,res)=>{
-    const [name , email , password] = req.body
+const createUser = asyncHandler(async(req ,res)=>{
+    const {name , email , password} = req.body
     if(!name || !email || !password){
         res.status(400).json({message : 'all fields required'})
     }
@@ -14,7 +14,6 @@ const createUser = async(req ,res)=>{
     const user = await User.create({name , email , password})
 
     if(user){
-        res.status(201)
         res.status(201).json({
             id : user._id,
             name : user.name,
@@ -22,14 +21,14 @@ const createUser = async(req ,res)=>{
         })
     }
     
-}
-const updateUser = (req, res)=>{
+})
+const updateUser =asyncHandler( (req, res)=>{
     res.status(200).json({message : 'user updated'})
-}
-const deleteUser = (req, res)=>{
+})
+const deleteUser = asyncHandler((req, res)=>{
     res.status(200).json({message : 'user delete'})
-}
-const loginUser = (req, res)=>{
+})
+const loginUser = asyncHandler((req, res)=>{
     res.status(200).json({message : 'user profile'})
-}
+})
 export {createUser , updateUser , deleteUser , loginUser}
