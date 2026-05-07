@@ -4,9 +4,9 @@ import express from 'express'
 const router = express.Router()
 
 router.post('/register' ,createUser)
-router.put('/profile', updateUser )
+router.put('/updateUser', updateUser )
 router.delete('/profile' , deleteUser)
-router.post('/profile' , loginUser)
+router.post('/login' , loginUser)
 
 
 export default router
