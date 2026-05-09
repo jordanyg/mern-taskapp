@@ -46,7 +46,7 @@ const loginUser = asyncHandler(async(req, res)=>{
     }
 })
 const updateUser =asyncHandler(async (req, res)=>{
-    const user = await User.findOne({email})
+    const user = await User.findOne(req.user._id)
 
     if(!user){
         res.status(400)
@@ -72,8 +72,18 @@ const updateUser =asyncHandler(async (req, res)=>{
     
 
 })
-const deleteUser = asyncHandler((req, res)=>{
-    res.status(200).json({message : 'user delete'})
+const deleteUser = asyncHandler(async(req, res)=>{
+        const user = await User.findOne(req.user._id)
+
+    if(!user){
+        res.status(400)
+        throw new Error('user does not exist')
+    }
+    await User.deleteOne({_id :req.user._id})
+    res.status(200).json({
+        message : 'user deleted successfully'
+    })
+    
 })
 
 export {createUser , updateUser , deleteUser , loginUser}
