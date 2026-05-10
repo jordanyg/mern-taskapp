@@ -1,8 +1,10 @@
 import express from 'express'
 import userRoutes from './routes/userRoutes.js'
+import taskRoutes from './routes/taskRoutes.js'
 import connectDB from './config/db.js'
 import dotenv from 'dotenv'
 import { notFound ,errorHandler } from './middleware/errorMiddleware.js'
+import cookieParser from 'cookie-parser'
 
 
 
@@ -14,7 +16,9 @@ const port = 8000
 
 app.use(express.json()) //1 body parser first
 app.use(express.urlencoded({extended : false}))
+app.use(cookieParser())
 app.use('/users' , userRoutes) //2 routes second
+app.use('/tasks' , taskRoutes)
 app.use(notFound) //3 not gound error handler third
 app.use(errorHandler) // 4 error handler fourth
 

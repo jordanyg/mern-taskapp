@@ -46,7 +46,7 @@ const loginUser = asyncHandler(async(req, res)=>{
     }
 })
 const updateUser =asyncHandler(async (req, res)=>{
-    const user = await User.findOne(req.user._id)
+    const user = await User.findById(req.user._id)
 
     if(!user){
         res.status(400)
@@ -73,7 +73,7 @@ const updateUser =asyncHandler(async (req, res)=>{
 
 })
 const deleteUser = asyncHandler(async(req, res)=>{
-        const user = await User.findOne(req.user._id)
+        const user = await User.findById(req.user._id)
 
     if(!user){
         res.status(400)
@@ -86,4 +86,12 @@ const deleteUser = asyncHandler(async(req, res)=>{
     
 })
 
-export {createUser , updateUser , deleteUser , loginUser}
+const logoutUser =async(req,res)=>{
+    res.cookie('jwt' , '' , {
+        httpOnly: true , 
+        expires : new Date(0)
+    })
+    res.status(200).json({message : 'successfully logged out'})
+}
+
+export {createUser , updateUser , deleteUser , loginUser , logoutUser}

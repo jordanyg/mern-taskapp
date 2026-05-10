@@ -1,4 +1,4 @@
-import { createUser  ,updateUser ,loginUser , deleteUser} from "../controllers/userController.js";
+import { createUser  ,updateUser ,loginUser , deleteUser ,logoutUser} from "../controllers/userController.js";
 import express from 'express'
 import protect from "../middleware/authMiddleware.js";
 
@@ -8,6 +8,7 @@ router.post('/register' ,createUser)
 router.put('/updateUser',protect, updateUser )
 router.delete('/profile' ,protect, deleteUser)
 router.post('/login' , loginUser)
+router.post('/logout', protect , logoutUser)
 
 
 export default router
