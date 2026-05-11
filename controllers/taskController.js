@@ -1,10 +1,22 @@
-const createTasks = (req,res)=>{
-    res.status(200).json({message: 'create task route working'})
-}
+import asyncHandler from "express-async-handler"
+import Task from "../models/taskModel.js"
 
-const getTasks = (req,res)=>{
-    res.status(200).json({message: 'get task route working'})
-}
+const createTasks =asyncHandler( async(req,res)=>{
+    if(!req.body){
+        res.status(200)
+        throw new Error('please enter a task')
+    }
+
+    const tasks = await Task.create({
+        text : req.body.text,
+        user : req.user.id
+    })
+    res.status(200).json(tasks)
+})
+
+const getTasks = asyncHandler( async(req,res)=>{
+    const tasks = await Task.find()
+})
 
 const updateTask = (req,res)=>{
     res.status(200).json({message: 'update task route working'})
