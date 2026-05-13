@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 import User from "./userModel.js";
 
 const taskSchema = await mongoose.Schema({
-    name:{
-        type : mongoose.Schema.Types.ObjectId,
+    user:{
+        type : mongoose.Schema.Types.ObjectId, //So every task stores the ID of the user who created it.
         required : true , 
         ref : User
     },
