@@ -17,8 +17,8 @@ const port = 8000
 app.use(express.json()) //1 body parser first
 app.use(express.urlencoded({extended : false}))
 app.use(cookieParser())
-app.use('/users' , userRoutes) //2 routes second
-app.use('/tasks' , taskRoutes)
+app.use('/api/users' , userRoutes) //2 routes second
+app.use('/api/tasks' , taskRoutes)
 app.use(notFound) //3 not gound error handler third
 app.use(errorHandler) // 4 error handler fourth
 

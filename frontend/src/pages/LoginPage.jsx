@@ -1,14 +1,39 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useDispatch , useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { setCredentials } from '../slices/authSlice'
+import { useLoginMutation } from '../slices/usersApiSlice'
+import { toast } from 'react-toastify'
 
 const LoginPage = () => {
     const [email , setEmail] = useState('')
     const [password , setPassword] = useState('')
 
-    const submitHandler = (e)=>{
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const [login] = useLoginMutation()
+
+    const {userInfo} = useSelector((state) => state.auth)
+
+    useEffect(()=>{
+      if(userInfo){
+        navigate('/')
+      }
+    },[userInfo , navigate])
+
+    const submitHandler = async(e)=>{
         e.preventDefault()
-        console.log('submit')
+        try {
+          const res = await login({email , password}).unwrap()
+          
+          dispatch(setCredentials(res))
+          navigate('/')
+        } catch (err) {
+          toast.error(err?.data?.message || err.error)
+        }
     }
 
   return (
