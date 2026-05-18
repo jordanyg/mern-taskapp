@@ -10,7 +10,28 @@ export const tasksApiSlice = apiSlice.injectEndpoints({
                 method : 'POST',
                 body : data
             })
+        }),
+        getTask: builder.query({
+            query: ()=>({
+                url : `${TASKS_URL}/get`,
+                method: 'GET'
+            })
+        }),
+        updateUserTask : builder.mutation({
+            query: (data ,id)=>({
+                url: `${TASKS_URL}/update/${id}`,
+                method: 'PUT',
+                body :data
+            })
+        }),
+        deleteUserTask : builder.mutation({
+            query: (id)=>({
+                url: `${TASKS_URL}/delete/${id}`,
+                method : 'DELETE'
+            })
         })
-        
+
     })
 })
+
+export const {useAddTaskMutation , useGetTaskQuery , useUpdateUserTaskMutation ,useDeleteUserTaskMutation} =tasksApiSlice
