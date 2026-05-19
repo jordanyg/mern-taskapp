@@ -172,7 +172,7 @@ const [updateTask] = useUpdateUserTaskMutation()
                       {/* Update */}
                       <button
                         onClick={() => {
-                          setEditingTaskId(task.id)
+                          setEditingTaskId(task._id)
                           setUpdatedText(task.text)
                         }}
                         className="px-4 py-2 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-white font-medium transition duration-300"
@@ -211,6 +211,7 @@ const [updateTask] = useUpdateUserTaskMutation()
                       <button
                         onClick={() =>
                           updateTaskHandler(task._id)
+                          
                         }
                         className="px-5 py-3 rounded-xl bg-blue-500 hover:bg-blue-400 text-white font-semibold transition duration-300"
                       >

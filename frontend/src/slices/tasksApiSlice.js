@@ -18,8 +18,8 @@ export const tasksApiSlice = apiSlice.injectEndpoints({
             })
         }),
         updateUserTask : builder.mutation({
-            query: (data ,id)=>({
-                url: `${TASKS_URL}/update/${id}`,
+            query: (data )=>({
+                url: `${TASKS_URL}/update/${data.id}`,
                 method: 'PUT',
                 body :data
             })
